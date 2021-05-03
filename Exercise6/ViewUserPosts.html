@@ -1,0 +1,44 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="index.js"></script>
+</head>
+<body style="text-align:center; background-color:grey;">
+<form id="usrform" name="form"  action="ViewUserPosts.php"  method="post">
+      <h1 style="font-weight: bold;">View User Posts</h1>
+      <BR/>
+      <label for="users">Select a user</label>
+      <select name="users" id="users">
+      <?php
+	$mysqli = new mysqli("mysql.eecs.ku.edu", "bradenlockwood", "the3eiY4",
+        "bradenlockwood");
+
+        if ($mysqli->connect_errno) {
+        printf("Connect failed: %s\n", $mysqli->connect_error);
+       exit();
+       }
+       else{
+            echo "Connect Success";
+            echo "<br>";
+       }  
+
+       $query = "SELECT user_id from Users";
+       $result = $mysqli->query($query);
+
+	while ($row = $result->fetch_assoc()){
+        echo "<option value ='".$row["user_id"]."'>".$row["user_id"]."</option>";
+        }
+
+       $mysqli->close();
+      ?>
+      </select>
+      <br><br>
+
+      <button id='submit'>Submit</button>
+</form>
+</body>
+</html>
+
